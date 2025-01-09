@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: latest
+    commands:
+      - echo Installing dependencies...
+      - python3 -m venv .venv
+      - source .venv/bin/activate
+      - pip install --upgrade pip
+      - pip install pytest flask
+  pre_build:
+    commands:
+      - echo Running pre-build steps...
+      - pytest --version
+  build:
+    commands:
+      - echo Running build steps...
+      - pytest test_app.py
+      - chmod +x scripts/*.sh
+      - echo "Build completed on `date`"
+  post_build:
+    commands:
+      - echo Build completed successfully.
+      - zip -r app-package.zip . -x "test_app.py" "*.git" "*.log" ".venv/*"
+artifacts:
+  files:
+    - '**/*'
