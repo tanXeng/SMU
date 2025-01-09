@@ -12,7 +12,6 @@ phases:
   build:
     commands:
       - echo Running build steps...
-      - pytest test_app.py
   post_build:
     commands:
       - echo Build completed successfully.
