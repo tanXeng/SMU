@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - pip install pytest
+  pre_build:
+    commands:
+      - echo Running pre-build steps...
+      - pytest --version
+  build:
+    commands:
+      - echo Running build steps...
+      - pytest test_app.py
+  post_build:
+    commands:
+      - echo Build completed successfully.
+artifacts:
+  files:
+    - '**/*'
